@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -18,7 +19,7 @@ class UserController extends Controller
      * @param RegisterRequest $request
      * @return JsonResponse
      */
-    public function register(RegisterRequest $request): JsonResponse
+    public function registration(RegisterRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = User::query()->create([
@@ -58,7 +59,20 @@ class UserController extends Controller
      */
     public function getUser(Request $request): JsonResponse
     {
-        return response()->json($request->user());
+        return response()->json(new UserResource($request->user()));
+    }
+
+    /**
+     * Выход пользователя
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function logout(Request $request): Response
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->noContent();
     }
 
     /**
