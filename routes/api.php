@@ -16,6 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [UserController::class, 'logout']);
     Route::get('/user', [UserController::class, 'getUser']);
     Route::get('/user/hackathons', [HackathonController::class, 'user']);
+    Route::post('/hackathons', [HackathonController::class, 'store']);
 });
 
 Route::get('/hackathons', [HackathonController::class, 'index']);
