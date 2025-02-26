@@ -15,5 +15,7 @@ Route::post('/auth/login', [UserController::class, 'login'])->name('login');
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [UserController::class, 'logout']);
     Route::get('/user', [UserController::class, 'getUser']);
-    Route::get('/hackathons', [HackathonController::class, 'index']);
+    Route::get('/user/hackathons', [HackathonController::class, 'user']);
 });
+
+Route::get('/hackathons', [HackathonController::class, 'index']);

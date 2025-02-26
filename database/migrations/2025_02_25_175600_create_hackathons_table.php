@@ -18,7 +18,10 @@ return new class extends Migration
             $table->integer('max_members_count');
             $table->text('description');
             $table->string('task');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

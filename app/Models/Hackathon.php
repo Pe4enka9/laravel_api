@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $max_members_count
  * @property string $description
  * @property string $task
+ * @property int $user_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
