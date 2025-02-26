@@ -8,7 +8,6 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -48,11 +47,11 @@ class UserController extends Controller
     }
 
     // Выход пользователя
-    public function logout(Request $request): Response
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->tokens()->delete();
 
-        return response()->noContent();
+        return response()->json(null, 204);
     }
 
     // JSON ответ
