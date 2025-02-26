@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HackathonRequest;
 use App\Http\Resources\HackathonResource;
-use App\Models\Answer;
 use App\Models\Hackathon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

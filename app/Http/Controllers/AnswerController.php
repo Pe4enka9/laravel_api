@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AnswerRequest;
+use App\Http\Resources\AnswerResource;
 use App\Models\Answer;
 use App\Models\Hackathon;
 use Illuminate\Http\JsonResponse;
@@ -28,6 +30,31 @@ class AnswerController extends Controller
             return response()->json([], 403);
         }
 
-        return response()->json(['text' => $answer->text]);
+        return response()->json(new AnswerResource($answer));
+    }
+
+    /**
+     * Сохранение ответа на хакатон
+     *
+     * @param AnswerRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function store(AnswerRequest $request, int $id): JsonResponse
+    {
+        /** @var Hackathon $hackathon */
+        $hackathon = Hackathon::find($id);
+
+        if (!$hackathon) {
+            return response()->json([], 404);
+        }
+
+        /** @var Answer $answer */
+        $answer = Answer::query()->create([
+            'text' => $request->get('text'),
+            'hackathon_id' => $hackathon->id,
+        ]);
+
+        return response()->json(new AnswerResource($answer));
     }
 }
