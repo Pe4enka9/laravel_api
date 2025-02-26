@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/hackathons', [HackathonController::class, 'user']);
     Route::post('/hackathons', [HackathonController::class, 'store']);
     Route::put('/hackathons/{id}', [HackathonController::class, 'update']);
+    Route::delete('/hackathons/{id}', [HackathonController::class, 'destroy']);
 });
 
 Route::get('/hackathons', [HackathonController::class, 'index']);

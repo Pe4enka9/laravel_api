@@ -7,6 +7,7 @@ use App\Http\Resources\HackathonResource;
 use App\Models\Hackathon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HackathonController extends Controller
 {
@@ -104,5 +105,30 @@ class HackathonController extends Controller
         }
 
         return response()->json([], 403);
+    }
+
+    /**
+     * Удаление хакатона
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse|Response
+     */
+    public function destroy(Request $request, int $id): JsonResponse | Response
+    {
+        /** @var Hackathon $hackathon */
+        $hackathon = Hackathon::find($id);
+
+        if (!$hackathon) {
+            return response()->json([], 404);
+        }
+
+        if ($hackathon->user_id !== $request->user()->id) {
+            return response()->json([], 403);
+        }
+
+        $hackathon->delete();
+
+        return response()->noContent();
     }
 }
