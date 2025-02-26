@@ -71,4 +71,38 @@ class HackathonController extends Controller
 
         return response()->json(new HackathonResource($hackathon));
     }
+
+    /**
+     * Обновление хакатона
+     *
+     * @param HackathonRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(HackathonRequest $request, int $id): JsonResponse
+    {
+        /** @var Hackathon $hackathon */
+        $hackathon = Hackathon::find($id);
+
+        if (!$hackathon) {
+            return response()->json([], 404);
+        }
+
+        if ($hackathon->user_id === $request->user()->id) {
+            $hackathon->update([
+                'name' => $request->get('name'),
+                'registration_date_begin' => $request->get('registration_date_begin'),
+                'registration_date_end' => $request->get('registration_date_end'),
+                'start_date_begin' => $request->get('start_date_begin'),
+                'start_date_end' => $request->get('start_date_end'),
+                'max_members_count' => $request->get('max_members_count'),
+                'description' => $request->get('description'),
+                'task' => $request->get('task'),
+            ]);
+
+            return response()->json(new HackathonResource($hackathon));
+        }
+
+        return response()->json([], 403);
+    }
 }
