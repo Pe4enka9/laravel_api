@@ -13,12 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Регистрация пользователя
-     *
-     * @param RegisterRequest $request
-     * @return JsonResponse
-     */
+    // Регистрация пользователя
     public function registration(RegisterRequest $request): JsonResponse
     {
         /** @var User $user */
@@ -33,12 +28,7 @@ class UserController extends Controller
         return $this->returnResponseJson($user, 201);
     }
 
-    /**
-     * Авторизация пользователя
-     *
-     * @param LoginRequest $request
-     * @return JsonResponse
-     */
+    // Авторизация пользователя
     public function login(LoginRequest $request): JsonResponse
     {
         /** @var User $user */
@@ -51,23 +41,13 @@ class UserController extends Controller
         return response()->json([], 404);
     }
 
-    /**
-     * Получение пользователя
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
+    // Получение пользователя
     public function getUser(Request $request): JsonResponse
     {
         return response()->json(new UserResource($request->user()));
     }
 
-    /**
-     * Выход пользователя
-     *
-     * @param Request $request
-     * @return Response
-     */
+    // Выход пользователя
     public function logout(Request $request): Response
     {
         $request->user()->tokens()->delete();
@@ -75,13 +55,7 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    /**
-     * JSON ответ
-     *
-     * @param User $user
-     * @param int $status
-     * @return JsonResponse
-     */
+    // JSON ответ
     private function returnResponseJson(User $user, int $status = 200): JsonResponse
     {
         return response()->json([

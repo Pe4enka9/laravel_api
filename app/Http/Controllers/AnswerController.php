@@ -11,13 +11,7 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
-    /**
-     * Получение ответа на хакатон
-     *
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
-     */
+    // Получение ответа на хакатон
     public function answer(Request $request, int $id): JsonResponse
     {
         $answer = Answer::where('hackathon_id', $id)->first();
@@ -33,13 +27,7 @@ class AnswerController extends Controller
         return response()->json(new AnswerResource($answer));
     }
 
-    /**
-     * Сохранение ответа на хакатон
-     *
-     * @param AnswerRequest $request
-     * @param int $id
-     * @return JsonResponse
-     */
+    // Сохранение ответа на хакатон
     public function store(AnswerRequest $request, int $id): JsonResponse
     {
         /** @var Hackathon $hackathon */

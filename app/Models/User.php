@@ -17,7 +17,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon $birth_date
  * @property string $password
  */
-
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */

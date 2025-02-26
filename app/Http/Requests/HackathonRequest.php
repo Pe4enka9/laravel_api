@@ -4,11 +4,6 @@ namespace App\Http\Requests;
 
 class HackathonRequest extends ApiRequest
 {
-    /**
-     * Правила валидации
-     *
-     * @return array[]
-     */
     public function rules(): array
     {
         return [
