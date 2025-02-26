@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/hackathons', [HackathonController::class, 'index']);
+Route::get('/hackathons/{id}', [HackathonController::class, 'show']);

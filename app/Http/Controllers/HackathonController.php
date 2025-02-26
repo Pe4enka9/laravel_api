@@ -32,4 +32,18 @@ class HackathonController extends Controller
 
         return response()->json(HackathonResource::collection($hackathons));
     }
+
+    /**
+     * Получение хакатона по id
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
+    {
+        /** @var Hackathon $hackathon */
+        $hackathon = Hackathon::find($id);
+
+        return response()->json(new HackathonResource($hackathon));
+    }
 }
