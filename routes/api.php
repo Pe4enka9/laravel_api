@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CommandController;
 use App\Http\Controllers\HackathonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * @see UserController
  * @see HackathonController
- * @see AnswerController
+ * @see CommandController
  */
 
 Route::post('/auth/registration', [UserController::class, 'registration']);
@@ -23,8 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/hackathons/{hackathon}', [HackathonController::class, 'update']);
     Route::delete('/hackathons/{hackathon}', [HackathonController::class, 'destroy']);
 
-    Route::get('/hackathons/{id}/answer', [AnswerController::class, 'answer']);
-    Route::post('/hackathons/{id}/answer', [AnswerController::class, 'store']);
+    Route::post('/commands', [CommandController::class, 'store']);
 });
 
 Route::get('/hackathons', [HackathonController::class, 'index']);
