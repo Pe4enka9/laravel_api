@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HackathonRequest;
 use App\Http\Resources\HackathonResource;
+use App\Models\Command;
 use App\Models\Hackathon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -81,5 +82,39 @@ class HackathonController extends Controller
         $hackathon->delete();
 
         return response()->json(null, 204);
+    }
+
+    // Получение ответа на хакатон
+    public function answer(Hackathon $hackathon, Request $request): JsonResponse
+    {
+        /** @var Command $command */
+        $command = Command::query()->where('hackathon_id', $hackathon->id)->first();
+
+        if (!$command) {
+            return response()->json([], 404);
+        }
+
+        return response()->json(['text' => $command->answer]);
+    }
+
+    // Сохранение ответа на хакатон
+    public function saveAnswer(Hackathon $hackathon, Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'text' => ['required', 'string'],
+        ]);
+
+        /** @var Command $command */
+        $command = Command::query()->where('hackathon_id', $hackathon->id)->first();
+
+        if (!$command) {
+            return response()->json([], 404);
+        }
+
+        $command->update([
+            'answer' => $validated['text'],
+        ]);
+
+        return response()->json(['text' => $validated['text']]);
     }
 }

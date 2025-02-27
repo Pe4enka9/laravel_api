@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
  * @property int $id
  * @property string $name
  * @property string $code
+ * @property string $answer
  * @property int $hackathon_id
  * @property int $owner_id
  * @property Carbon $created_at
