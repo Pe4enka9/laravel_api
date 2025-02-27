@@ -6,6 +6,7 @@ use App\Http\Requests\HackathonRequest;
 use App\Http\Resources\HackathonResource;
 use App\Models\Command;
 use App\Models\Hackathon;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -92,6 +93,18 @@ class HackathonController extends Controller
 
         if (!$command) {
             return response()->json([], 404);
+        }
+
+        if ($command->owner_id !== $request->user()->id) {
+            return response()->json([], 403);
+        }
+
+        if ($hackathon->start_date_begin > Carbon::today()) {
+            return response()->json([], 403);
+        }
+
+        if ($hackathon->start_date_end < Carbon::today()) {
+            return response()->json([], 403);
         }
 
         return response()->json(['text' => $command->answer]);
