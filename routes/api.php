@@ -24,6 +24,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/hackathons/{hackathon}', [HackathonController::class, 'destroy']);
 
     Route::post('/commands', [CommandController::class, 'store']);
+    Route::get('/user/commands', [CommandController::class, 'getUserCommands']);
+    Route::get('/commands/{command:code}', [CommandController::class, 'getCommand']);
+    Route::post('/commands/{command:code}/teammate', [CommandController::class, 'storeTeammate']);
+    Route::delete('/commands/{command:code}/teammate/{user}', [CommandController::class, 'destroyTeammate']);
 });
 
 Route::get('/hackathons', [HackathonController::class, 'index']);

@@ -8,18 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('command_id')->nullable()->after('password');
+        Schema::create('command_user', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('command_id');
+            $table->unsignedBigInteger('user_id');
+            $table->timestamps();
 
             $table->foreign('command_id')->references('id')->on('commands');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['command_id']);
-            $table->dropColumn('command_id');
-        });
+        Schema::dropIfExists('command_user');
     }
 };

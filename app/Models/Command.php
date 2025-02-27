@@ -5,7 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -13,12 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $code
  * @property int $hackathon_id
  * @property int $owner_id
- * @property array $teammates
  * @property Carbon $created_at
  * @property Carbon $updated_at
- *
- * @method static owner()
- * @method static teammates()
+ * @property-read User $owner
+ * @property-read User<Collection> $teammates
  */
 class Command extends Model
 {
@@ -34,8 +33,8 @@ class Command extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function teammates(): HasMany
+    public function teammates(): BelongsToMany
     {
-        return $this->hasMany(User::class, 'command_id');
+        return $this->belongsToMany(User::class, 'command_user');
     }
 }

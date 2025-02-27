@@ -16,7 +16,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property Carbon $birth_date
  * @property string $password
- * @property int $command_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

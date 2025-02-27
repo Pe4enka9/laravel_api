@@ -24,7 +24,7 @@ class CommandResource extends JsonResource
                 'birth_date' => $this->owner->birth_date,
                 'email' => $this->owner->email,
             ],
-            'teammates' => $this->teammates,
+            'teammates' => UserResource::collection($this->teammates),
         ];
     }
 }
